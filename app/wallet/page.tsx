@@ -1,13 +1,5 @@
 "use client";
 
-import { MetaMaskInpageProvider } from "@metamask/providers";
-
-declare global {
-  interface Window {
-    ethereum?: MetaMaskInpageProvider|any;
-  }
-}
-
 import { useState, useEffect } from "react";
 import { Layout, Card, Button, Tag, Modal, Form, Input, message } from "antd";
 import {
@@ -34,6 +26,21 @@ interface WalletItem {
   type: "ETH" | "BSC" | "Polygon";
   lastTransaction: string;
   createdAt: string;
+}
+
+declare global {
+  interface Window {
+    ethereum?: EthereumProvider;
+  }
+}
+
+interface EthereumProvider {
+  request: (args: { method: string; params?: any[] }) => Promise<any>;
+  on: (event: string, callback: (...args: any[]) => void) => void;
+  removeListener: (event: string, callback: (...args: any[]) => void) => void;
+  // 可选的链式属性
+  chainId?: string;
+  isMetaMask?: boolean;
 }
 
 // 模拟钱包数据
