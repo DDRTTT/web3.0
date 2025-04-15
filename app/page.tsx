@@ -38,7 +38,7 @@ export default function HomePage() {
         return false;
     }
     const mp = {')': '(', ']': '[', '}': '{'};
-    const st = [];
+    const st: string[] = [];
     for (const c of s) {
         if (!mp.hasOwnProperty(c)) { // c 是左括号
             st.push(c); // 入栈
@@ -74,7 +74,7 @@ export default function HomePage() {
   // 数组扁平化
   function flatten() {  
     let array = [1, [2, [3, [4, 5]], 6], [7, [8, 9]]];  
-    const result = [];  
+    const result:any[] = [];  
     function recursiveFlatten(element) {  
         if (Array.isArray(element)) {  
             element.forEach(item => {  
