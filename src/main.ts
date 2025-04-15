@@ -1,17 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module.js'; // 添加.js扩展名
+import compression from 'compression'; // 添加压缩中间件导入
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
-  // 生产环境使用动态端口（云平台自动分配）
+  // 使用 Vercel 提供的环境变量
   const port = process.env.PORT || 3000;
+  const host = '0.0.0.0';
+
+  // 添加跨平台支持
+  app.enableShutdownHooks();
+  // 生产环境建议开启压缩
+  app.use(compression());
+  // 添加健康检查接口
+  app.use('/health', (req, res) => res.status(200).send('OK'));
   
-  console.log(`Starting server in ${process.env.NODE_ENV || 'development'} mode`);
-  console.log(`Attempting to listen on port: ${port}`);
-  
-  await app.listen(port, '0.0.0.0', () => {
-    console.log(`Application is running on: http://localhost:${port}`);
+  await app.listen(port, host, () => {
+    console.log(`Application is running on: http://${host}:${port}`);
   });
 }
 bootstrap();

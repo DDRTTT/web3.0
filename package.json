@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "lint": "next lint"
   },
   "dependencies": {
@@ -18,8 +18,10 @@
     "@nestjs/platform-express": "^11.0.17",
     "@tanstack/react-query": "^5.67.2",
     "@tanstack/react-query-devtools": "^5.67.2",
+    "@types/compression": "^1.7.5",
     "antd": "^5.24.3",
     "axios": "^1.8.2",
+    "compression": "^1.8.0",
     "ethers": "^6.13.6",
     "next": "15.2.1",
     "react": "^19.0.0",
