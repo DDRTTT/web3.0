@@ -109,9 +109,9 @@ export default function WalletPage() {
         return;
       }
 
-      const accounts = await window.ethereum.request<string[]>({
+      const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
-      });
+      }) as string[];
 
       if (accounts && accounts.length > 0) {
         const address = accounts[0];
