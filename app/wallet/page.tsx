@@ -12,7 +12,6 @@ import { useState, useEffect } from "react";
 import { Layout, Card, Button, Tag, Modal, Form, Input, message } from "antd";
 import {
   PlusOutlined,
-  SearchOutlined,
   EditOutlined,
   DeleteOutlined,
   ExclamationCircleOutlined,
