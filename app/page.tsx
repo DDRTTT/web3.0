@@ -1,6 +1,6 @@
 'use client';
 
-import { Layout, Typography, Card, Row, Col, Statistic } from 'antd';
+import { Layout, Typography, Card, Row, Col, Statistic, Button } from 'antd';
 import { 
   DashboardOutlined, 
   UserOutlined, 
@@ -31,6 +31,69 @@ export default function HomePage() {
     };
   }, [setLoading]);
 
+  // 栈 有效括号闭合
+  function isValid() {
+    let s = '{{}[]{}{}[][]}';
+    if (s.length % 2) { // s 长度必须是偶数
+        return false;
+    }
+    const mp = {')': '(', ']': '[', '}': '{'};
+    const st = [];
+    for (const c of s) {
+        if (!mp.hasOwnProperty(c)) { // c 是左括号
+            st.push(c); // 入栈
+        }
+        if (st.length === 0 || st.pop() !== mp[c]) { // c 是右括号
+          console.log(false);
+          return false; // 没有左括号，或者左括号类型不对
+        }
+    }
+    console.log(st.length === 0);
+    return st.length === 0; // 所有左括号必须匹配完毕
+  };
+
+  // 合并两个有序链表
+  function mergeTwoLists(l1, l2) {
+    if(l1 === null){
+        return l2;
+    }
+    if(l2 === null){
+        return l1;
+    }
+    if(l1.val < l2.val){
+        l1.next = mergeTwoLists(l1.next, l2);
+        return l1;
+    }else{
+        l2.next = mergeTwoLists(l1, l2.next);
+        return l2;
+    }
+  };
+
+
+
+  // 数组扁平化
+  function flatten() {  
+    let array = [1, [2, [3, [4, 5]], 6], [7, [8, 9]]];  
+    const result = [];  
+    function recursiveFlatten(element) {  
+        if (Array.isArray(element)) {  
+            element.forEach(item => {  
+                recursiveFlatten(item);  
+            });  
+        } else {  
+            result.push(element);  
+        }  
+    }  
+    array.forEach(element => {  
+        recursiveFlatten(element);  
+    });  
+    return result;  
+}  
+
+  function handleClick() {
+    isValid()
+  }
+
   return (
     <Content
       style={{
@@ -44,6 +107,7 @@ export default function HomePage() {
       <div style={{ marginBottom: 24 }}>
         <Title level={2}>欢迎使用 Web3 管理系统</Title>
         <Paragraph>一站式 Web3 应用管理解决方案</Paragraph>
+        <Button onClick={()=>{handleClick()}}>123123123</Button>
       </div>
 
       {/* 统计数据卡片 */}
